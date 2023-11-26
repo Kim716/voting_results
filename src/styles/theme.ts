@@ -20,6 +20,12 @@ declare module "@mui/material/styles" {
   }
 }
 
+declare module "@mui/material/FormControl" {
+  interface FormControlPropsColorOverrides {
+    steelBlue: true;
+  }
+}
+
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     tlg: React.CSSProperties;

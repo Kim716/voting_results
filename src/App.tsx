@@ -2,12 +2,13 @@ import { Box } from "@mui/material";
 import { Header } from "@/components/Header";
 import { TabBar } from "@/components/TabBar";
 import { useState } from "react";
+import { Filter } from "@/components/Filter";
 
 export const App = () => {
   const [value, setValue] = useState(0);
 
   const tabs = [
-    { value: 0, title: "第15任 總統副總統大選", component: <div>1</div> },
+    { value: 0, title: "第15任 總統副總統大選", component: <Filter /> },
     { value: 1, title: "第10任 立法委員選舉", component: <div>2</div> },
   ];
 
@@ -27,10 +28,10 @@ export const App = () => {
         <Box
           sx={(theme) => ({
             px: 5,
-            pt: 2.5,
+            pt: 4,
             pb: 5,
             [theme.breakpoints.down("sm")]: {
-              pb: 2.5,
+              pb: 4,
             },
           })}
         >
