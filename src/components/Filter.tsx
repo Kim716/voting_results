@@ -9,10 +9,14 @@ interface DistrictData {
   };
 }
 
-export const Filter: React.FC = () => {
+interface FilterProps {
+  cityValue: string;
+  setCityValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const Filter: React.FC<FilterProps> = ({ cityValue, setCityValue }) => {
   const districtData: DistrictData = { ...districtRawData };
 
-  const [cityValue, setCityValue] = useState("");
   const [districtValue, setDistrictValue] = useState("");
   const [villageValue, setVillageValue] = useState("");
 

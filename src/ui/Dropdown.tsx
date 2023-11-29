@@ -31,9 +31,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
       <InputLabel id={labelId}>{label}</InputLabel>
       <Select
         labelId={labelId}
-        value={
-          selectItems.find((item) => item === nameValue) ? nameValue : undefined
-        }
+        value={selectItems.find((item) => item === nameValue) ? nameValue : ""}
         label={label}
         onChange={handleChange}
         IconComponent={KeyboardArrowDownIcon}
