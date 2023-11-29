@@ -1,0 +1,20 @@
+[
+  {
+    "candidateNumber": "1",
+    "president": "宋楚瑜",
+    "vicePresident": "余湘",
+    "note": " "
+  },
+  {
+    "candidateNumber": "2",
+    "president": "韓國瑜",
+    "vicePresident": "張善政",
+    "note": " "
+  },
+  {
+    "candidateNumber": "3",
+    "president": "蔡英文",
+    "vicePresident": "賴清德",
+    "note": "*"
+  }
+]
