@@ -64,6 +64,9 @@ const fontFamily = [
 
 let theme = createTheme({
   palette: {
+    background: {
+      default: "#f5f5f5",
+    },
     green: {
       main: "#84cb98",
       dark: "#639872",

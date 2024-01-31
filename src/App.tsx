@@ -17,7 +17,6 @@ export const App = () => {
       <Header />
       <Box
         sx={(theme) => ({
-          background: theme.palette.black.contrastText,
           py: 5,
           [theme.breakpoints.down("sm")]: {
             py: 3,
