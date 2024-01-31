@@ -34,7 +34,7 @@ const cityNameSvgIdMap: {
   基隆市: "Keelung",
 };
 
-export const PresidentPanel: React.FC = () => {
+export const Panel: React.FC = () => {
   const theme = useTheme();
   const [cityValue, setCityValue] = useState("");
   const [citySvgId, setCitySvgId] = useState("");
