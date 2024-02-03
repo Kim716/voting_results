@@ -1,7 +1,8 @@
 import TaiwanSvg from "@/assets/taiwan.svg?react";
-import { Box, useTheme } from "@mui/material";
+import { Box, Stack, useTheme } from "@mui/material";
 import { Filter } from "@/components/Filter";
 import { useEffect, useState } from "react";
+import { Overview } from "@/ui/Overview";
 
 const cityNameSvgIdMap: {
   [key: string]: string;
@@ -56,21 +57,28 @@ export const Panel: React.FC = () => {
   return (
     <Box>
       <Filter cityValue={cityValue} setCityValue={setCityValue} />
-      <Box
-        sx={{
-          mt: 5,
-          path: { cursor: "pointer" },
-          [` .${citySvgId},.${citySvgId} path`]: {
-            fill: theme.palette.steelBlue.main,
-          },
-        }}
-        onClick={(e) => {
-          e.stopPropagation();
-          setCitySvgId((e.target as HTMLElement)?.classList[0]);
-        }}
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        marginTop="40px"
       >
-        <TaiwanSvg />
-      </Box>
+        <Overview />
+        <Box
+          sx={{
+            path: { cursor: "pointer" },
+            [` .${citySvgId},.${citySvgId} path`]: {
+              fill: theme.palette.steelBlue.main,
+            },
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            setCitySvgId((e.target as HTMLElement)?.classList[0]);
+          }}
+        >
+          <TaiwanSvg />
+        </Box>
+      </Stack>
     </Box>
   );
 };
