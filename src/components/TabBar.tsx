@@ -1,5 +1,5 @@
 import { Tab } from "@/ui/Tab";
-import { Box, Tabs } from "@mui/material";
+import { Tabs } from "@mui/material";
 
 interface TabBarProps {
   value: number;
@@ -13,26 +13,24 @@ export const TabBar: React.FC<TabBarProps> = ({ value, setValue, tabs }) => {
   };
 
   return (
-    <Box>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons
-        allowScrollButtonsMobile
-        TabIndicatorProps={{
-          style: { display: "none" },
-        }}
-        sx={{
-          "& .MuiTabs-flexContainer": {
-            gap: 2.5,
-          },
-        }}
-      >
-        {tabs.map((tab) => (
-          <Tab label={tab.title} key={tab.value} />
-        ))}
-      </Tabs>
-    </Box>
+    <Tabs
+      value={value}
+      onChange={handleChange}
+      variant="scrollable"
+      scrollButtons
+      allowScrollButtonsMobile
+      TabIndicatorProps={{
+        style: { display: "none" },
+      }}
+      sx={{
+        "& .MuiTabs-flexContainer": {
+          gap: 2.5,
+        },
+      }}
+    >
+      {tabs.map((tab) => (
+        <Tab label={tab.title} key={tab.value} />
+      ))}
+    </Tabs>
   );
 };
