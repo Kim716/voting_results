@@ -107,7 +107,7 @@ export const Panel: React.FC = () => {
     );
 
   return (
-    <Box>
+    <Box sx={{ maxWidth: "1600px" }}>
       <Filter
         {...{
           cityValue,
