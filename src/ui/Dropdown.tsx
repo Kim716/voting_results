@@ -7,6 +7,7 @@ interface DropdownProps {
   selectItems: string[];
   nameValue: string;
   onChange: (value: string) => void;
+  styles: object;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -15,9 +16,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
   selectItems,
   nameValue,
   onChange,
+  styles,
 }) => {
   return (
-    <FormControl size="small" color="steelBlue">
+    <FormControl size="small" color="steelBlue" sx={styles}>
       <InputLabel id={labelId}>{label}</InputLabel>
       <Select
         labelId={labelId}
@@ -25,7 +27,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         label={label}
         onChange={(e) => onChange(e.target.value)}
         IconComponent={KeyboardArrowDownIcon}
-        sx={{ width: "156px", borderRadius: 2 }}
+        sx={{ width: "100%", borderRadius: 2 }}
       >
         {selectItems?.map((item) => (
           <MenuItem value={item} key={item}>

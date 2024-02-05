@@ -123,6 +123,13 @@ export const Panel: React.FC = () => {
         justifyContent="space-between"
         alignItems="flex-start"
         marginTop="40px"
+        sx={{
+          [theme.breakpoints.down("sm")]: {
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "20px",
+          },
+        }}
       >
         <Overview />
         <Box
@@ -133,6 +140,11 @@ export const Panel: React.FC = () => {
               [theme.breakpoints.down("lg")]: {
                 width: "400px",
                 height: "590px",
+              },
+              [theme.breakpoints.down("sm")]: {
+                width: "100%",
+                height: "450px",
+                marginTop: "10px",
               },
             },
           }}
@@ -153,7 +165,18 @@ export const Panel: React.FC = () => {
         >
           <TaiwanSvg />
         </Box>
-        <Stack gap="20px">
+        <Stack
+          gap="20px"
+          width="300px"
+          sx={{
+            [theme.breakpoints.down("sm")]: {
+              flexDirection: "row",
+              width: "100%",
+              overflow: "auto",
+              marginTop: "20px",
+            },
+          }}
+        >
           {!cityValue && !districtValue && !villageValue ? (
             <>
               <Tip

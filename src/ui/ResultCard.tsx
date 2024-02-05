@@ -69,12 +69,12 @@ export const ResultCard: React.FC<ResultCardProps> = ({
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        flexShrink: 0,
         padding: "20px",
         border: "2px solid black",
         borderColor: theme.palette[backgroundColor].main,
         borderRadius: "8px",
         background: theme.palette[backgroundColor].light,
-        width: "300px",
         height: "210px",
       })}
     >

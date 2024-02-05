@@ -1,5 +1,5 @@
 import { Dropdown } from "@/ui/Dropdown";
-import { Button, Stack } from "@mui/material";
+import { Box, Button, useMediaQuery, useTheme } from "@mui/material";
 import districtVoteResultRawData from "@/assets/data/districtVoteResult.json";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { DistrictVoteResultData } from "@/ui/ResultCard";
@@ -21,6 +21,7 @@ export const Filter: React.FC<FilterProps> = ({
   villageValue,
   setVillageValue,
 }) => {
+  const theme = useTheme();
   const districtData: DistrictVoteResultData = districtVoteResultRawData;
 
   const handleCityValueChange = (value: string) => {
@@ -39,13 +40,29 @@ export const Filter: React.FC<FilterProps> = ({
   };
 
   return (
-    <Stack direction="row" gap={2.5} alignItems="center">
+    <Box
+      sx={(theme) => ({
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 156px) 100px",
+        gap: "20px",
+        alignItems: "center",
+        [theme.breakpoints.down("sm")]: {
+          gridTemplateColumns: "repeat(2, 1fr) 30px",
+        },
+      })}
+    >
       <Dropdown
         labelId="select-city"
         label="縣市"
         selectItems={Object.keys(districtData)}
         nameValue={cityValue}
         onChange={handleCityValueChange}
+        styles={{
+          [theme.breakpoints.down("sm")]: {
+            gridColumn: "1/-2",
+            gridRow: "1/2",
+          },
+        }}
       />
       <Dropdown
         labelId="select-district"
@@ -53,6 +70,12 @@ export const Filter: React.FC<FilterProps> = ({
         selectItems={Object.keys(districtData[cityValue]?.district || {})}
         nameValue={districtValue}
         onChange={handleDistrictValueChange}
+        styles={{
+          [theme.breakpoints.down("sm")]: {
+            gridColumn: "1/2",
+            gridRow: "2/3",
+          },
+        }}
       />
       <Dropdown
         labelId="select-village"
@@ -62,11 +85,28 @@ export const Filter: React.FC<FilterProps> = ({
         )}
         nameValue={villageValue}
         onChange={handleVillageValueChange}
+        styles={{
+          [theme.breakpoints.down("sm")]: {
+            gridColumn: "2/3",
+            gridRow: "2/3",
+          },
+        }}
       />
       <Button
         variant="contained"
         color="steelBlue"
-        sx={{ height: "30px", fontSize: "16px" }}
+        sx={{
+          height: "30px",
+          fontSize: "16px",
+          [theme.breakpoints.down("sm")]: {
+            gridRow: "1/3",
+            height: "100%",
+            minWidth: "20px",
+            span: {
+              margin: 0,
+            },
+          },
+        }}
         endIcon={<RefreshIcon />}
         onClick={() => {
           if (!cityValue && !districtValue && !villageValue) {
@@ -77,8 +117,8 @@ export const Filter: React.FC<FilterProps> = ({
           setVillageValue("");
         }}
       >
-        清除
+        {useMediaQuery(theme.breakpoints.down("sm")) ? null : "清除"}
       </Button>
-    </Stack>
+    </Box>
   );
 };

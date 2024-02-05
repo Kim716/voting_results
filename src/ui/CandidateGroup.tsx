@@ -36,7 +36,16 @@ export const CandidateGroup: React.FC<CandidateGroupProps> = ({
   }
 
   return (
-    <Stack flexDirection="row" gap="20px" alignItems="center">
+    <Stack
+      flexDirection="row"
+      gap="12px"
+      alignItems="center"
+      sx={(theme) => ({
+        [theme.breakpoints.down("sm")]: {
+          gap: "8px",
+        },
+      })}
+    >
       <Stack
         justifyContent="center"
         alignItems="center"
@@ -53,7 +62,7 @@ export const CandidateGroup: React.FC<CandidateGroupProps> = ({
       </Stack>
       <Stack
         direction="row"
-        width="104px"
+        width="95px"
         justifyContent="space-between"
         alignItems="center"
       >

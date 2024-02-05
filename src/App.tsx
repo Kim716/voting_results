@@ -17,20 +17,21 @@ export const App = () => {
       <Box
         sx={(theme) => ({
           overflow: "auto",
-          py: 5,
+          py: "40px",
           [theme.breakpoints.down("sm")]: {
-            py: 3,
+            py: "24px",
           },
         })}
       >
         <TabBar value={value} setValue={setValue} tabs={tabs} />
         <Box
           sx={(theme) => ({
-            px: 5,
-            pt: 4,
-            pb: 5,
+            px: "40px",
+            pt: "32px",
+            pb: "40px",
             [theme.breakpoints.down("sm")]: {
-              pb: 4,
+              px: "24px",
+              pb: "32px",
             },
           })}
         >
