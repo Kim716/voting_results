@@ -1,8 +1,12 @@
 import TaiwanSvg from "@/assets/taiwan.svg?react";
+import TipClickFilter from "@/assets/tip-click-filter.png";
+import TipClickMap from "@/assets/tip-click-map.png";
 import { Box, Stack, useTheme } from "@mui/material";
 import { Filter } from "@/components/Filter";
 import { useEffect, useState } from "react";
 import { Overview } from "@/ui/Overview";
+import { Tip } from "@/ui/Tip";
+import { ResultCard } from "@/ui/ResultCard";
 
 const cityNameSvgIdMap: {
   [key: string]: string;
@@ -38,25 +42,26 @@ const cityNameSvgIdMap: {
 export const Panel: React.FC = () => {
   const theme = useTheme();
   const [cityValue, setCityValue] = useState("");
+  const [districtValue, setDistrictValue] = useState("");
+  const [villageValue, setVillageValue] = useState("");
   const [citySvgId, setCitySvgId] = useState("");
 
   useEffect(() => {
     setCitySvgId(cityNameSvgIdMap[cityValue]);
   }, [cityValue]);
 
-  useEffect(() => {
-    const targetCityValue = Object.keys(cityNameSvgIdMap).find(
-      (key) => cityNameSvgIdMap[key] === citySvgId
-    );
-    if (!targetCityValue) {
-      return;
-    }
-    setCityValue(targetCityValue);
-  }, [citySvgId]);
-
   return (
     <Box>
-      <Filter cityValue={cityValue} setCityValue={setCityValue} />
+      <Filter
+        {...{
+          cityValue,
+          setCityValue,
+          districtValue,
+          setDistrictValue,
+          villageValue,
+          setVillageValue,
+        }}
+      />
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -73,11 +78,42 @@ export const Panel: React.FC = () => {
           }}
           onClick={(e) => {
             e.stopPropagation();
-            setCitySvgId((e.target as HTMLElement)?.classList[0]);
+            const targetCityValue = Object.keys(cityNameSvgIdMap).find(
+              (key) =>
+                cityNameSvgIdMap[key] ===
+                (e.target as HTMLElement)?.classList[0]
+            );
+            if (!targetCityValue) {
+              return;
+            }
+            setCityValue(targetCityValue);
+            setDistrictValue("");
+            setVillageValue("");
           }}
         >
           <TaiwanSvg />
         </Box>
+        <Stack gap="20px">
+          {!cityValue && !districtValue && !villageValue ? (
+            <>
+              <Tip
+                text="點擊選擇縣市、區、村里，可查看選舉結果"
+                imageSrc={TipClickFilter}
+              />
+              <Tip text="點擊地圖查看縣市的選舉結果" imageSrc={TipClickMap} />
+            </>
+          ) : (
+            <>
+              {cityValue && <ResultCard {...{ cityValue }} />}
+              {districtValue && (
+                <ResultCard {...{ cityValue, districtValue }} />
+              )}
+              {villageValue && (
+                <ResultCard {...{ cityValue, districtValue, villageValue }} />
+              )}
+            </>
+          )}
+        </Stack>
       </Stack>
     </Box>
   );

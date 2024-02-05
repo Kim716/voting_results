@@ -54,6 +54,12 @@ declare module "@mui/material/Typography" {
   }
 }
 
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    steelBlue: true;
+  }
+}
+
 const fontFamily = [
   "Noto Sans TC",
   "PingFang TC",
@@ -81,6 +87,7 @@ let theme = createTheme({
       main: "#262e49",
       dark: "#1d2337",
       light: "#e9eaed",
+      contrastText: "#e9eaed",
     },
     brown: {
       main: "#dfa175",

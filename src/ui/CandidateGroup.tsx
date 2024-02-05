@@ -13,7 +13,7 @@ interface CandidateData {
 }
 
 interface CandidateGroupProps {
-  candidateNumber: number;
+  candidateNumber: number | string;
   voteCount: number;
   votePercentage: string;
 }

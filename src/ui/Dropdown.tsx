@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 interface DropdownProps {
@@ -12,7 +6,7 @@ interface DropdownProps {
   label: string;
   selectItems: string[];
   nameValue: string;
-  setNameValue: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (value: string) => void;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -20,12 +14,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
   label,
   selectItems,
   nameValue,
-  setNameValue,
+  onChange,
 }) => {
-  const handleChange = (event: SelectChangeEvent) => {
-    setNameValue(event.target.value);
-  };
-
   return (
     <FormControl size="small" color="steelBlue">
       <InputLabel id={labelId}>{label}</InputLabel>
@@ -33,7 +23,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
         labelId={labelId}
         value={selectItems.find((item) => item === nameValue) ? nameValue : ""}
         label={label}
-        onChange={handleChange}
+        onChange={(e) => onChange(e.target.value)}
         IconComponent={KeyboardArrowDownIcon}
         sx={{ width: "156px", borderRadius: 2 }}
       >
