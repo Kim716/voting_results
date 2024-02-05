@@ -16,6 +16,7 @@ export const App = () => {
       <Header />
       <Box
         sx={(theme) => ({
+          overflow: "auto",
           py: 5,
           [theme.breakpoints.down("sm")]: {
             py: 3,

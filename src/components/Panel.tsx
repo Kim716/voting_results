@@ -7,6 +7,33 @@ import { useEffect, useState } from "react";
 import { Overview } from "@/ui/Overview";
 import { Tip } from "@/ui/Tip";
 import { ResultCard } from "@/ui/ResultCard";
+import districtVoteResultRawData from "@/assets/data/districtVoteResult.json";
+import {
+  candidateNumberPolicyPartyMap2020,
+  policyPartyColorMap,
+} from "@/utils/const";
+
+export interface DistrictVoteResultData {
+  [city: string]: {
+    "1": number;
+    "2": number;
+    "3": number;
+    district: {
+      [district: string]: {
+        "1": number;
+        "2": number;
+        "3": number;
+        village: {
+          [village: string]: {
+            "1": number;
+            "2": number;
+            "3": number;
+          };
+        };
+      };
+    };
+  };
+}
 
 const cityNameSvgIdMap: {
   [key: string]: string;
@@ -41,6 +68,7 @@ const cityNameSvgIdMap: {
 
 export const Panel: React.FC = () => {
   const theme = useTheme();
+  const districtData: DistrictVoteResultData = districtVoteResultRawData;
   const [cityValue, setCityValue] = useState("");
   const [districtValue, setDistrictValue] = useState("");
   const [villageValue, setVillageValue] = useState("");
@@ -49,6 +77,34 @@ export const Panel: React.FC = () => {
   useEffect(() => {
     setCitySvgId(cityNameSvgIdMap[cityValue]);
   }, [cityValue]);
+
+  const taiwanSvgColor = Object.entries(districtData)
+    .map(([cityName, voteResult]) => {
+      const higherVoteCountCandidateNumber = Object.entries(voteResult)
+        .filter(([_, value]) => typeof value === "number")
+        .sort((a, b) => {
+          if (typeof a[1] === "number" && typeof b[1] === "number") {
+            return b[1] - a[1];
+          }
+          return 0;
+        })[0][0];
+      const color =
+        policyPartyColorMap[
+          candidateNumberPolicyPartyMap2020[higherVoteCountCandidateNumber]
+        ];
+      return [cityNameSvgIdMap[cityName], color];
+    })
+    .reduce(
+      (acc, [cityId, color]) => ({
+        ...acc,
+        [` .${cityId}`]: {
+          fill: theme.palette[color as "blue" | "green" | "brown"][
+            cityId === citySvgId ? "dark" : "main"
+          ],
+        },
+      }),
+      {}
+    );
 
   return (
     <Box>
@@ -72,8 +128,12 @@ export const Panel: React.FC = () => {
         <Box
           sx={{
             path: { cursor: "pointer" },
-            [` .${citySvgId},.${citySvgId} path`]: {
-              fill: theme.palette.steelBlue.main,
+            ...taiwanSvgColor,
+            svg: {
+              [theme.breakpoints.down("lg")]: {
+                width: "400px",
+                height: "590px",
+              },
             },
           }}
           onClick={(e) => {
